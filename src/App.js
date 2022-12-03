@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from './component/Login';
+import React, { useState } from 'react';
+import SignUp from './component/SignUp';
+import Welcome from './component/Welcome';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 function App() {
+  const [data,setData] = useState([]);
+  const getData = (getData) => {
+      setData([...data,getData]);
+  }
+  console.log(data);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path='signup' element={<SignUp getData={getData} />} />
+          <Route path='/' element={<Login data={data}/>} />
+          <Route path='welcome' element={<Welcome data={data} />}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
